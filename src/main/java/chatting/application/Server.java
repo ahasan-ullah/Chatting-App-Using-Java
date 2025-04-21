@@ -9,9 +9,9 @@ import java.awt.event.MouseEvent;
 
 public class Server extends JFrame implements ActionListener {
     private JPanel headerPanel;
-    private ImageIcon backIcon,backIconMain,profileIcon,prfileIconMain,videoIcon,videoIconMain,audioIcon,audioIconMain;
-    private Image backImage,profileImage,videoImage,audioImage;
-    private JLabel backlabel,profileLabel,videoLabel,audioLabel;
+    private ImageIcon backIcon,backIconMain,profileIcon,prfileIconMain,videoIcon,videoIconMain,audioIcon,audioIconMain,moreIcon,moreIconMain;
+    private Image backImage,profileImage,videoImage,audioImage,moreImage;
+    private JLabel backlabel,profileLabel,videoLabel,audioLabel,moreLabel;
 
     Server(){
         setLayout(null);
@@ -25,7 +25,7 @@ public class Server extends JFrame implements ActionListener {
         backImage=backIcon.getImage().getScaledInstance(25,25,Image.SCALE_SMOOTH);
         backIconMain=new ImageIcon(backImage);
         backlabel=new JLabel(backIconMain);
-        backlabel.setBounds(5, 20, 25, 25);
+        backlabel.setBounds(10, 20, 25, 25);
         backlabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -39,7 +39,7 @@ public class Server extends JFrame implements ActionListener {
         profileImage=profileIcon.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
         prfileIconMain=new ImageIcon(profileImage);
         profileLabel=new JLabel(prfileIconMain);
-        profileLabel.setBounds(40, 10, 50, 50);
+        profileLabel.setBounds(45, 10, 50, 50);
         headerPanel.add(profileLabel);
 
         //video icon----------------
@@ -55,8 +55,16 @@ public class Server extends JFrame implements ActionListener {
         audioImage=audioIcon.getImage().getScaledInstance(30,30,Image.SCALE_SMOOTH);
         audioIconMain=new ImageIcon(audioImage);
         audioLabel=new JLabel(audioIconMain);
-        audioLabel.setBounds(360, 20, 30, 30);
+        audioLabel.setBounds(350, 20, 30, 30);
         headerPanel.add(audioLabel);
+
+        //more icon----------------
+        moreIcon = new ImageIcon(getClass().getResource("/icons/3icon.png"));
+        moreImage=moreIcon.getImage().getScaledInstance(30,30,Image.SCALE_SMOOTH);
+        moreIconMain=new ImageIcon(moreImage);
+        moreLabel=new JLabel(moreIconMain);
+        moreLabel.setBounds(400, 20, 10, 25);
+        headerPanel.add(moreLabel);
 
 
         add(headerPanel);
