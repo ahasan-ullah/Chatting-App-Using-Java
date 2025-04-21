@@ -9,9 +9,9 @@ import java.awt.event.MouseEvent;
 
 public class Server extends JFrame implements ActionListener {
     private JPanel headerPanel;
-    private ImageIcon backIcon,backIconMain,profileIcon,prfileIconMain,videoIcon,videoIconMain;
-    private Image backImage,profileImage,videoImage;
-    private JLabel backlabel,profileLabel,videoLabel;
+    private ImageIcon backIcon,backIconMain,profileIcon,prfileIconMain,videoIcon,videoIconMain,audioIcon,audioIconMain;
+    private Image backImage,profileImage,videoImage,audioImage;
+    private JLabel backlabel,profileLabel,videoLabel,audioLabel;
 
     Server(){
         setLayout(null);
@@ -49,6 +49,14 @@ public class Server extends JFrame implements ActionListener {
         videoLabel=new JLabel(videoIconMain);
         videoLabel.setBounds(300, 20, 30, 30);
         headerPanel.add(videoLabel);
+
+        //audio icon----------------
+        audioIcon = new ImageIcon(getClass().getResource("/icons/phone.png"));
+        audioImage=audioIcon.getImage().getScaledInstance(30,30,Image.SCALE_SMOOTH);
+        audioIconMain=new ImageIcon(audioImage);
+        audioLabel=new JLabel(audioIconMain);
+        audioLabel.setBounds(360, 20, 30, 30);
+        headerPanel.add(audioLabel);
 
 
         add(headerPanel);
