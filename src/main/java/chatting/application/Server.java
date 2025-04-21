@@ -2,8 +2,12 @@ package chatting.application;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class Server extends JFrame {
+public class Server extends JFrame implements ActionListener {
     private JPanel headerPanel;
     private ImageIcon backIcon,backIconMain;
     private Image backImage;
@@ -21,6 +25,12 @@ public class Server extends JFrame {
         backIconMain=new ImageIcon(backImage);
         backlabel=new JLabel(backIconMain);
         backlabel.setBounds(5, 20, 25, 25);
+        backlabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                System.exit(0);
+            }
+        });
         headerPanel.add(backlabel);
 
         add(headerPanel);
@@ -29,6 +39,10 @@ public class Server extends JFrame {
         getContentPane().setBackground(Color.WHITE);
         setLocation(200,50);
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent ae){
+
     }
 
     public static void main(String[] args){
