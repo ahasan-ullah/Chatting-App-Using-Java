@@ -14,6 +14,7 @@ public class Server extends JFrame implements ActionListener {
     private JLabel backlabel,profileLabel,videoLabel,audioLabel,moreLabel,name,status;
     private JTextField msgBox;
     private JButton sendBtn;
+    private Box vertical=Box.createVerticalBox();
 
     Server(){
         setLayout(null);
@@ -99,6 +100,7 @@ public class Server extends JFrame implements ActionListener {
         sendBtn.setBackground(new Color(7,94,84));
         sendBtn.setForeground(Color.WHITE);
         sendBtn.setFont(new Font("SAN_SERIF",Font.PLAIN,16));
+        sendBtn.addActionListener(this);
 
 
         add(bodyPanel);
@@ -113,7 +115,27 @@ public class Server extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae){
+        if(ae.getSource()==sendBtn){
+            String out=msgBox.getText();
+            JLabel output=new JLabel(out);
+            JPanel msg=new JPanel();
+            msg.add(output);
 
+            bodyPanel.setLayout(new BorderLayout());
+
+            JPanel right=new JPanel(new BorderLayout());
+            right.add(msg,BorderLayout.LINE_END);
+
+            vertical.add(right);
+            vertical.add(Box.createVerticalStrut(15));
+
+            bodyPanel.add(vertical,BorderLayout.PAGE_START);
+
+            //for JFrame repainting
+            repaint();
+            invalidate();
+            validate();
+        }
     }
 
     public static void main(String[] args){
