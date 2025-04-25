@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Server extends JFrame implements ActionListener {
@@ -131,6 +132,8 @@ public class Server extends JFrame implements ActionListener {
 
             bodyPanel.add(vertical,BorderLayout.PAGE_START);
 
+            msgBox.setText("");
+
             //for JFrame repainting
             repaint();
             invalidate();
@@ -148,7 +151,11 @@ public class Server extends JFrame implements ActionListener {
         output.setBorder(new EmptyBorder(15,15,15,50));
         msgPanel.add(output);
 
-
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat dateFormat=new SimpleDateFormat("HH:mm");
+        JLabel time=new JLabel();
+        time.setText(dateFormat.format(calendar.getTime()));
+        msgPanel.add(time);
 
         return msgPanel;
     }
