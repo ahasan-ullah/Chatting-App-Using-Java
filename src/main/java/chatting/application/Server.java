@@ -1,11 +1,13 @@
 package chatting.application;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 public class Server extends JFrame implements ActionListener {
     private JPanel headerPanel,bodyPanel;
@@ -117,9 +119,7 @@ public class Server extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==sendBtn){
             String out=msgBox.getText();
-            JLabel output=new JLabel(out);
-            JPanel msg=new JPanel();
-            msg.add(output);
+            JPanel msg=formatLabel(out);
 
             bodyPanel.setLayout(new BorderLayout());
 
@@ -136,6 +136,21 @@ public class Server extends JFrame implements ActionListener {
             invalidate();
             validate();
         }
+    }
+
+    public static JPanel formatLabel(String out){
+        JPanel msgPanel=new JPanel();
+        msgPanel.setLayout(new BoxLayout(msgPanel,BoxLayout.Y_AXIS));
+        JLabel output=new JLabel("<html><p style=\"width: 150px\">"+out+"</p></html>");
+        output.setFont(new Font("Tahoma", Font.PLAIN,16));
+        output.setBackground(new Color(37, 211, 102));
+        output.setOpaque(true);
+        output.setBorder(new EmptyBorder(15,15,15,50));
+        msgPanel.add(output);
+
+
+
+        return msgPanel;
     }
 
     public static void main(String[] args){
