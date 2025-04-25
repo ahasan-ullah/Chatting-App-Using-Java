@@ -11,7 +11,7 @@ public class Server extends JFrame implements ActionListener {
     private JPanel headerPanel;
     private ImageIcon backIcon,backIconMain,profileIcon,prfileIconMain,videoIcon,videoIconMain,audioIcon,audioIconMain,moreIcon,moreIconMain;
     private Image backImage,profileImage,videoImage,audioImage,moreImage;
-    private JLabel backlabel,profileLabel,videoLabel,audioLabel,moreLabel;
+    private JLabel backlabel,profileLabel,videoLabel,audioLabel,moreLabel,name,status;
 
     Server(){
         setLayout(null);
@@ -65,6 +65,20 @@ public class Server extends JFrame implements ActionListener {
         moreLabel=new JLabel(moreIconMain);
         moreLabel.setBounds(400, 20, 10, 25);
         headerPanel.add(moreLabel);
+
+        //name
+        name=new JLabel("Rahim");
+        name.setBounds(110,15,100,10);
+        name.setForeground(Color.WHITE);
+        name.setFont(new Font("SAN_SERIF",Font.BOLD,18));
+        headerPanel.add(name);
+
+        //status
+        status=new JLabel("Active Now");
+        status.setBounds(110,35,100,10);
+        status.setForeground(Color.WHITE);
+        status.setFont(new Font("SAN_SERIF",Font.BOLD,14));
+        headerPanel.add(status);
 
 
         add(headerPanel);
