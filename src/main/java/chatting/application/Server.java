@@ -8,10 +8,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Server extends JFrame implements ActionListener {
-    private JPanel headerPanel;
+    private JPanel headerPanel,bodyPanel;
     private ImageIcon backIcon,backIconMain,profileIcon,prfileIconMain,videoIcon,videoIconMain,audioIcon,audioIconMain,moreIcon,moreIconMain;
     private Image backImage,profileImage,videoImage,audioImage,moreImage;
     private JLabel backlabel,profileLabel,videoLabel,audioLabel,moreLabel,name,status;
+    private JTextField msgBox;
+    private JButton sendBtn;
 
     Server(){
         setLayout(null);
@@ -81,7 +83,23 @@ public class Server extends JFrame implements ActionListener {
         headerPanel.add(status);
 
 
+        //body panel
+        bodyPanel=new JPanel();
+        bodyPanel.setBounds(5,75,425,520);
+
+
+        //msg Box
+        msgBox=new JTextField();
+        msgBox.setBounds(5,605,320,50);
+        msgBox.setFont(new Font("SAN_SERIF",Font.PLAIN,16));
+
+
+
+
+        add(bodyPanel);
         add(headerPanel);
+        add(msgBox);
+        add(sendBtn);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450,700);
         getContentPane().setBackground(Color.WHITE);
