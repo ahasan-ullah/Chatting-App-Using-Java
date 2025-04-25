@@ -7,20 +7,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Server extends JFrame implements ActionListener {
+public class Server implements ActionListener {
     private JPanel headerPanel,bodyPanel;
     private ImageIcon backIcon,backIconMain,profileIcon,prfileIconMain,videoIcon,videoIconMain,audioIcon,audioIconMain,moreIcon,moreIconMain;
     private Image backImage,profileImage,videoImage,audioImage,moreImage;
     private JLabel backlabel,profileLabel,videoLabel,audioLabel,moreLabel,name,status;
     private JTextField msgBox;
     private JButton sendBtn;
-    private Box vertical=Box.createVerticalBox();
+    private static Box vertical=Box.createVerticalBox();
+    static JFrame serverFrame=new JFrame();
+    private static DataOutputStream outputStream;
 
     Server(){
-        setLayout(null);
+        serverFrame.setLayout(null);
         headerPanel=new JPanel();
         headerPanel.setBackground(new Color(7,94,84));
         headerPanel.setBounds(0,0,450,70);
@@ -106,38 +112,45 @@ public class Server extends JFrame implements ActionListener {
         sendBtn.addActionListener(this);
 
 
-        add(bodyPanel);
-        add(headerPanel);
-        add(msgBox);
-        add(sendBtn);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(450,700);
-        getContentPane().setBackground(Color.WHITE);
-        setLocation(200,50);
-        setVisible(true);
+        serverFrame.add(bodyPanel);
+        serverFrame.add(headerPanel);
+        serverFrame.add(msgBox);
+        serverFrame.add(sendBtn);
+        serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        serverFrame.setSize(450,700);
+        serverFrame.getContentPane().setBackground(Color.WHITE);
+        serverFrame.setLocation(200,50);
+        serverFrame.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==sendBtn){
-            String out=msgBox.getText();
-            JPanel msg=formatLabel(out);
+            try {
+                String out=msgBox.getText();
+                JPanel msg=formatLabel(out);
 
-            bodyPanel.setLayout(new BorderLayout());
+                bodyPanel.setLayout(new BorderLayout());
 
-            JPanel right=new JPanel(new BorderLayout());
-            right.add(msg,BorderLayout.LINE_END);
+                JPanel right=new JPanel(new BorderLayout());
+                right.add(msg,BorderLayout.LINE_END);
 
-            vertical.add(right);
-            vertical.add(Box.createVerticalStrut(15));
+                vertical.add(right);
+                vertical.add(Box.createVerticalStrut(15));
 
-            bodyPanel.add(vertical,BorderLayout.PAGE_START);
+                bodyPanel.add(vertical,BorderLayout.PAGE_START);
 
-            msgBox.setText("");
+                //sending msg
+                outputStream.writeUTF(out);
 
-            //for JFrame repainting
-            repaint();
-            invalidate();
-            validate();
+                msgBox.setText("");
+
+                //for JFrame repainting
+                serverFrame.repaint();
+                serverFrame.invalidate();
+                serverFrame.validate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -162,5 +175,24 @@ public class Server extends JFrame implements ActionListener {
 
     public static void main(String[] args){
         new Server();
+        try{
+            ServerSocket serverSocket=new ServerSocket(6001);
+            while(true){
+                Socket socket=serverSocket.accept();
+                outputStream=new DataOutputStream(socket.getOutputStream());
+                DataInputStream inputStream=new DataInputStream(socket.getInputStream());
+
+                while(true){
+                    String msg=inputStream.readUTF();
+                    JPanel panel=formatLabel(msg);
+                    JPanel left = new JPanel(new BorderLayout());
+                    left.add(panel,BorderLayout.LINE_START);
+                    vertical.add(left);
+                    serverFrame.validate();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
