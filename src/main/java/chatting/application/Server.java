@@ -93,7 +93,12 @@ public class Server extends JFrame implements ActionListener {
         msgBox.setBounds(5,605,320,50);
         msgBox.setFont(new Font("SAN_SERIF",Font.PLAIN,16));
 
-
+        //send btn
+        sendBtn=new JButton("Send");
+        sendBtn.setBounds(330,605,90,50);
+        sendBtn.setBackground(new Color(7,94,84));
+        sendBtn.setForeground(Color.WHITE);
+        sendBtn.setFont(new Font("SAN_SERIF",Font.PLAIN,16));
 
 
         add(bodyPanel);
